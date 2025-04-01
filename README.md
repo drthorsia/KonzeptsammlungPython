@@ -1,0 +1,2 @@
+# KonzeptsammlungPython
+Konzeptsammlung Python
