@@ -3113,6 +3113,212 @@ mpl.rcParams['figure.dpi'] = 150
 
 \end_layout
 
+\begin_layout Subsection
+Anzeige von Markdown-Code aus einer Python-Zelle
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Anzeige-von-Markdown-Code"
+
+\end_inset
+
+Mit folgendem Code kann in Python Markdown-Code erzeugt werden,
+ der dann in Jupyter Lab als gesetzte Elemente angezeigt werden:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+from IPython.display import display,
+ Markdown,
+ Latex
+\end_layout
+
+\begin_layout Plain Layout
+
+display(Markdown('*hervorgehobener Text* 
+\backslash
+n
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 'Formel:
+ $
+\backslash
+sin(2
+\backslash
+,
+\backslash
+pi
+\backslash
+,f
+\backslash
+,t)$ 
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 ' # Ueberschrift 
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 'Dies ist die erste Zeile
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 '| spalte 1 | spalte 2 |
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 '| -------- | -------- |
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 '| 3,54     | 3,24     |
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 '| 3,54     | 3,24     |
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 '| -------- | -------- |
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                 '* Aufzaehlung Punkt 1
+\backslash
+n'+
+\end_layout
+
+\begin_layout Plain Layout
+
+                '* Aufzaehlung Punkt 2'))  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dies erzeugt folgende Ausgabe:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/035_markdownrendering/markdownrendering.png
+	width 4cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Automatisiert erstellte Tabelle in Markdown
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+from IPython.display import display,
+ Markdown,
+ Latex
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+mdstring  = '| spalte 1 | spalte 2 |
+\backslash
+n| :-------- | -------- |
+\backslash
+n'
+\end_layout
+
+\begin_layout Plain Layout
+
+for x in np.linspace(0,3.14,
+ 4):
+\end_layout
+
+\begin_layout Plain Layout
+
+	mdstring = mdstring + "{:1.4} | {:1.4}
+\backslash
+n".format(x,x**2)
+\end_layout
+
+\begin_layout Plain Layout
+
+display(Markdown(mdstring))
+\end_layout
+
+\begin_layout Plain Layout
+
+print(mdstring)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dies ergibt:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/036_automatischetabelle/tabelle.png
+	width 5cm
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 VisualStudio Code (Jupyter Lab)
 \end_layout
@@ -5935,7 +6141,11 @@ name "sec:dreifachintegral"
 
 Das Integral:
  
-\begin_inset Formula $I=\int_{z=0}^{9}\int_{\varphi=\frac{-\pi}{6}}^{\frac{\pi}{6}}\int_{r=\cos\left(\varphi\right)}^{7}r^{3}\,7\,\mathrm{d}r\,\mathrm{d}\varphi\,\mathrm{d}z$
+\begin_inset Formula $I=\int_{z=0}^{9}\int_{\varphi=\frac{-\pi}{6}}^{\frac{\pi}{6}}\int_{r=\cos\left(\varphi\right)}^{7}f\left(r,\varphi,z\right)\,\mathrm{d}r\,\mathrm{d}\varphi\,\mathrm{d}z$
+\end_inset
+
+ mit 
+\begin_inset Formula $f\left(r,\varphi,z\right)=r^{3}\,7$
 \end_inset
 
  wird wie folgt berechnet:
@@ -6021,6 +6231,18 @@ print(F) # Fehler
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Wichtig:
+ Die Integrationsvariable des innersten Integrals ist das erste Argument der Funktion.
+ Die Grenzen des innersten Integrals sind die letzten beiden Argumente der Funktion tplquad.
+ Merke:
+ Erstes Argument des Integranden 
+\begin_inset Formula $\leftrightarrow$
+\end_inset
+
+ Letze beiden Argumente der Funktion tplquad
 \end_layout
 
 \begin_layout Subsection
