@@ -7,14 +7,10 @@ import matplotlib.patches as mpatches
 import datetime
 
 from matplotlib import rcParams
-from matplotlib.widgets import CheckButtons
 
-# settings
-# data 
 DATE_FORMAT = '%Y-%m-%d'
 TODAY = '2025-07-17'
 
-# chart 
 TITLE = "Gartenteich anlegen"
 TITLE_SIZE = 12
 TITLE_FONT_WEIGHT = "bold"
@@ -42,23 +38,18 @@ FONT_FAMILY = "sans-serif"
 FONT_SANS_SERIF = ["Arial", "Roboto", "DejaVu Sans"]
 
 
-# style confs
+
 rcParams['font.family'] = FONT_FAMILY
 rcParams['font.sans-serif'] = FONT_SANS_SERIF
 rcParams['axes.titlesize'] = TITLE_SIZE
 rcParams['axes.labelsize'] = LABEL_SIZE
 
 def build_week_ticks(start_date, end_date):
-    """
-    Identifies the monday dates that will be ticked
-    """
+
     mondays = pd.date_range(start=start_date, end=end_date, freq='W-MON')
     return mondays, [d.strftime('%d') for d in mondays]
 
 def plot_gantt(tasks, output_path=None):
-    """
-    Plots the Gantt chart and displays it or saves it to output_path.
-    """
     if tasks.empty:
         print("No tasks to plot.")
         return
@@ -105,7 +96,7 @@ def plot_gantt(tasks, output_path=None):
                         colors=FONT_COLOR)
     sec_ax.spines['bottom'].set_position(('outward', 20))
 
-    # month line formatting
+    # Monatslinie
     for label in sec_ax.get_xticklabels():
         label.set_fontsize(MONTH_FONT_SIZE)
         label.set_weight(MONTH_FONT_WEIGHT)
@@ -114,9 +105,8 @@ def plot_gantt(tasks, output_path=None):
     for spine in ['top', 'right']:
         ax.spines[spine].set_visible(False)
         sec_ax.spines[spine].set_visible(False)
-        # ... previous code
 
- # legend
+ # Legende
     handles = []
     for task_statuss, color in TASKTYPE_BAR_COLORS.items():
         patch = mpatches.Patch(color=color, label=task_statuss)
