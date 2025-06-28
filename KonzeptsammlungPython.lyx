@@ -1924,6 +1924,40 @@ y = [1] + [2,
 \end_layout
 
 \begin_layout Subsection
+Array um ein Element verlängern
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+y = [1,
+ 3,
+ 4]
+\end_layout
+
+\begin_layout Plain Layout
+
+y.append(42) # Rückgabewert ist none
+\end_layout
+
+\begin_layout Plain Layout
+
+print(y) # ergibt [1,
+ 3,
+ 4,
+ 42]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Länge eines Arrays
 \end_layout
 
@@ -3245,6 +3279,16 @@ Dies erzeugt folgende Ausgabe:
 \end_inset
 
 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -3655,6 +3699,106 @@ anaconda3
 \begin_layout Itemize
 Etwas ungewöhnlich ist,
  dass der Standard-Kernel für die Jupyter Lab-extension in der Python extension eingestellt wird.
+\end_layout
+
+\begin_layout Section
+Jupyter lab
+\end_layout
+
+\begin_layout Subsection
+Eingabe griechischer Buchstaben
+\end_layout
+
+\begin_layout Standard
+In Code-Zellen können mit LaTeX-Befehlen einhzelne griechische Buchstaben gesetzt werden,
+ indem zuerst der Rückschrägsttrich (
+\backslash
+),
+ dann der Name des griechischen Buchstabens (beipielsweise pi) eingegeben wird und dann die Tabulatortaste gedrückt wird.
+ Es erscheint ein Auswahldialog mit einem Eintrag und der kann mit der Eingabetaste geschlossen werden.
+ Beispielsweise erzeugt 
+\family typewriter
+
+\backslash
+pi tab
+\family default
+ den Buchstaben 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Markdown
+\end_layout
+
+\begin_layout Subsubsection
+Zwischenzeilenformeln
+\end_layout
+
+\begin_layout Standard
+Formeln innerhalb eines textes können mit LaTeX beschrieben werden und werden in Dollar-Zeichen eingesetzt.
+ 
+\end_layout
+
+\begin_layout Standard
+Beispielcode:
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/037_markdownzwischenzeile/zwischenzeile.png
+
+\end_inset
+
+#
+\end_layout
+
+\begin_layout Standard
+Ausgabe:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/037_markdownzwischenzeile/zwischenzeileausgabe.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Abgesetzte Formeln
+\end_layout
+
+\begin_layout Standard
+Abgesetzte Formeln stehen in einer separaten Zeile.
+ Abgesetzte Formeln werden mit zwei Dollarzeichen eingefasst.
+ Beispielcode:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/037_markdownzwischenzeile/abgesetteformelcode.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ausgabe:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename figures/037_markdownzwischenzeile/abgesetteformelausgabe.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -4964,6 +5108,175 @@ Mh = np.hstack((v1,
 \begin_layout Plain Layout
 
            [31 32]]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Kreuzprodukt
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vec{a}\times\vec{b}=\left(\begin{array}{c}
+1\\
+0\\
+0
+\end{array}\right)\times\left(\begin{array}{c}
+0\\
+1\\
+0
+\end{array}\right)=\left(\begin{array}{c}
+0\\
+0\\
+1
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+x = [1,
+ 0,
+ 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = [0,
+ 1,
+ 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+np.cross(x,
+ y) # ergibt:
+ array([0,
+ 0,
+ 1])
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Länge (Norm) eines Vektors
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left|\vec{a}\right|=\left|\left(\begin{array}{c}
+3\\
+4\\
+12
+\end{array}\right)\right|=\sqrt{3^{2}+4^{2}+12^{2}}=13
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+v  = np.array([3,4,12])
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.linalg.norm(v)) # ergibt:
+ 13.0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Skalarprodukt
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\vec{a}\cdot\vec{b}=\left(\begin{array}{c}
+1\\
+0\\
+0
+\end{array}\right)\cdot\left(\begin{array}{c}
+2\\
+1\\
+0
+\end{array}\right)=1\cdot2+0\cdot1+0\cdot0=2
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+x = [1,
+ 0,
+ 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+y = [2,
+ 1,
+ 0]
+\end_layout
+
+\begin_layout Plain Layout
+
+np.dot(x,
+ y) # ergibt:
+ 2
 \end_layout
 
 \end_inset
@@ -6424,7 +6737,64 @@ y = factor(x**4+4*x**2)
 
 \begin_layout Plain Layout
 
-print(y)
+print(y) # ergibt x**2*(x**2 + 4)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Koeffizienten eines Polynoms
+\end_layout
+
+\begin_layout Standard
+Berechnet werden die Koeffizienten des Polynoms,
+ welches faktorisiert 
+\begin_inset Formula $\left(y-2\right)\cdot\left(y-3\right)$
+\end_inset
+
+ lautet.
+ Ausmultipliziert ist dies 
+\begin_inset Formula $y^{2}-5\,y+6$
+\end_inset
+
+.
+ Die Koeffzienten sind also 1,
+ -5 und 6.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import sympy as sp
+\end_layout
+
+\begin_layout Plain Layout
+
+y = sp.symbols('y')
+\end_layout
+
+\begin_layout Plain Layout
+
+exp = (y-2)*(y-3) # y^2 -5*y + 6
+\end_layout
+
+\begin_layout Plain Layout
+
+Ply = sp.Poly(exp,y)
+\end_layout
+
+\begin_layout Plain Layout
+
+print(Ply.all_coeffs()) # ergibt [1,
+ -5,
+ 6]
 \end_layout
 
 \end_inset
@@ -7912,6 +8282,58 @@ print(sympy.ratsimp(f))
 \end_layout
 
 \begin_layout Section
+Faktoren eines Teilausdruckes ermitteln
+\end_layout
+
+\begin_layout Standard
+Mit dem Befehl 
+\family typewriter
+.coeffs()
+\family default
+ können Faktoren eines Teilausdrucks extrahiert werden.
+ So kann beispielsweise aus dem Ausdruck 
+\begin_inset Formula $2\,a_{0}-10\,a_{1}$
+\end_inset
+
+ der Faktor vor 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ (also 2) wie folgt extrahiert werden:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import sympy as sp
+\end_layout
+
+\begin_layout Plain Layout
+
+a0,
+ a1 = sp.symbols('a0 a1')
+\end_layout
+
+\begin_layout Plain Layout
+
+print((2*a0 - 10*a1).coeff(a0))
+\end_layout
+
+\begin_layout Plain Layout
+
+# ergibt 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Komplexe Zahlen
 \end_layout
 
@@ -9009,7 +9431,7 @@ t  - 2*t  + 1
 \end_layout
 
 \begin_layout Subsection
-Exakte Lösungen linearer Gleichungssysteme
+Lineare Gleichungssysteme exakt lösen
 \end_layout
 
 \begin_layout Standard
@@ -13302,6 +13724,877 @@ status open
 
 \backslash
 null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Gantt-Chart
+\end_layout
+
+\begin_layout Standard
+Ein Gantt-Chart ist ein Projektablaufplan.
+ Beispiel:
+\end_layout
+
+\begin_layout Standard
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename figures/038_ganttchart/ganttchart.png
+	width 80text%
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+null
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Quellcode:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+#%%
+\end_layout
+
+\begin_layout Plain Layout
+
+import pandas as pd
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.dates as mdates
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.patches as mpatches
+\end_layout
+
+\begin_layout Plain Layout
+
+import datetime
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from matplotlib import rcParams
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DATE_FORMAT = '%Y-%m-%d'
+\end_layout
+
+\begin_layout Plain Layout
+
+TODAY = '2025-07-17'
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+TITLE = "Gartenteich anlegen"
+\end_layout
+
+\begin_layout Plain Layout
+
+TITLE_SIZE = 12
+\end_layout
+
+\begin_layout Plain Layout
+
+TITLE_FONT_WEIGHT = "bold"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+FONT_COLOR = "#0C0C0C"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+X_LABEL = ""
+\end_layout
+
+\begin_layout Plain Layout
+
+Y_LABEL = ""
+\end_layout
+
+\begin_layout Plain Layout
+
+LABEL_SIZE = 8
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+DAY_FONT_SIZE = 8
+\end_layout
+
+\begin_layout Plain Layout
+
+MONTH_FONT_SIZE = 10
+\end_layout
+
+\begin_layout Plain Layout
+
+MONTH_FONT_WEIGHT = "bold"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+BAR_COLOR = "#30C7DC"
+\end_layout
+
+\begin_layout Plain Layout
+
+TASKTYPE_BAR_COLORS = {
+\end_layout
+
+\begin_layout Plain Layout
+
+    "In Vorbereitung":
+ "#694fff",
+\end_layout
+
+\begin_layout Plain Layout
+
+    "Im Plan":
+ "#dce238",
+\end_layout
+
+\begin_layout Plain Layout
+
+    "Abgeschlossen":
+ "#5fdc00",
+\end_layout
+
+\begin_layout Plain Layout
+
+    "Verspaetet":
+ "#ff6e61",
+\end_layout
+
+\begin_layout Plain Layout
+
+    "Abgebrochen":
+ "#4b4b4b"
+\end_layout
+
+\begin_layout Plain Layout
+
+}  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+FONT_FAMILY = "sans-serif"
+\end_layout
+
+\begin_layout Plain Layout
+
+FONT_SANS_SERIF = ["Arial",
+ "Roboto",
+ "DejaVu Sans"]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+rcParams['font.family'] = FONT_FAMILY
+\end_layout
+
+\begin_layout Plain Layout
+
+rcParams['font.sans-serif'] = FONT_SANS_SERIF
+\end_layout
+
+\begin_layout Plain Layout
+
+rcParams['axes.titlesize'] = TITLE_SIZE
+\end_layout
+
+\begin_layout Plain Layout
+
+rcParams['axes.labelsize'] = LABEL_SIZE
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def build_week_ticks(start_date,
+ end_date):
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    mondays = pd.date_range(start=start_date,
+ end=end_date,
+ freq='W-MON')
+\end_layout
+
+\begin_layout Plain Layout
+
+    return mondays,
+ [d.strftime('%d') for d in mondays]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+def plot_gantt(tasks,
+ output_path=None):
+\end_layout
+
+\begin_layout Plain Layout
+
+    if tasks.empty:
+\end_layout
+
+\begin_layout Plain Layout
+
+        print("No tasks to plot.")
+\end_layout
+
+\begin_layout Plain Layout
+
+        return
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    start_date = tasks['start_date'].min()
+\end_layout
+
+\begin_layout Plain Layout
+
+    end_date = tasks['end_date'].max()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    tasks = tasks.sort_values(by=['start_date',
+ 'task_group'],
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                              ascending=False)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    fig,
+ ax = plt.subplots(figsize=(12,
+ 6))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    bars = []
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    for _,
+ task in tasks.iterrows():
+\end_layout
+
+\begin_layout Plain Layout
+
+        duration = (task['end_date'] - task['start_date']).days
+\end_layout
+
+\begin_layout Plain Layout
+
+        bar = ax.barh(
+\end_layout
+
+\begin_layout Plain Layout
+
+                task['task_group'] + ':
+ ' + task['task_description'],
+\end_layout
+
+\begin_layout Plain Layout
+
+                width=duration,
+\end_layout
+
+\begin_layout Plain Layout
+
+                height=0.6,
+\end_layout
+
+\begin_layout Plain Layout
+
+                left=task['start_date'],
+\end_layout
+
+\begin_layout Plain Layout
+
+                color=TASKTYPE_BAR_COLORS.get(task['task_status'],
+ BAR_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+        )
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.plot(mdates.date2num(datetime.datetime.fromisoformat(TODAY))*np.array([1,
+ 1]),
+\end_layout
+
+\begin_layout Plain Layout
+
+             ax.get_ylim(),'k--')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    week_positions,
+ week_labels = build_week_ticks(start_date,
+ end_date)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.set_title(TITLE,
+\end_layout
+
+\begin_layout Plain Layout
+
+          fontsize=TITLE_SIZE,
+ color=FONT_COLOR).set_fontweight(TITLE_FONT_WEIGHT)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.set_xlabel(X_LABEL,
+ fontsize=LABEL_SIZE,
+ color=FONT_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.set_ylabel(Y_LABEL,
+ fontsize=LABEL_SIZE,
+ color=FONT_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.tick_params(axis='both',
+ colors=FONT_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.set_xticks(week_positions)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.set_xticklabels(week_labels,
+ fontsize=DAY_FONT_SIZE,
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                        color=FONT_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.grid(axis='x',
+ linestyle='--',
+ alpha=0.4)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    sec_ax = ax.secondary_xaxis('bottom')
+\end_layout
+
+\begin_layout Plain Layout
+
+    sec_ax.xaxis.set_major_formatter(mdates.DateFormatter('%b.
+ %y'))
+\end_layout
+
+\begin_layout Plain Layout
+
+    sec_ax.xaxis.set_major_locator(mdates.MonthLocator())
+\end_layout
+
+\begin_layout Plain Layout
+
+    sec_ax.tick_params(axis='x',
+ labelsize=MONTH_FONT_SIZE,
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                        colors=FONT_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+    sec_ax.spines['bottom'].set_position(('outward',
+ 20))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    # Monatslinie
+\end_layout
+
+\begin_layout Plain Layout
+
+    for label in sec_ax.get_xticklabels():
+\end_layout
+
+\begin_layout Plain Layout
+
+        label.set_fontsize(MONTH_FONT_SIZE)
+\end_layout
+
+\begin_layout Plain Layout
+
+        label.set_weight(MONTH_FONT_WEIGHT)
+\end_layout
+
+\begin_layout Plain Layout
+
+        label.set_color(FONT_COLOR)
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+    for spine in ['top',
+ 'right']:
+\end_layout
+
+\begin_layout Plain Layout
+
+        ax.spines[spine].set_visible(False)
+\end_layout
+
+\begin_layout Plain Layout
+
+        sec_ax.spines[spine].set_visible(False)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ # Legende
+\end_layout
+
+\begin_layout Plain Layout
+
+    handles = []
+\end_layout
+
+\begin_layout Plain Layout
+
+    for task_statuss,
+ color in TASKTYPE_BAR_COLORS.items():
+\end_layout
+
+\begin_layout Plain Layout
+
+        patch = mpatches.Patch(color=color,
+ label=task_statuss)
+\end_layout
+
+\begin_layout Plain Layout
+
+        handles.append(patch)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    ax.legend(handles=handles,
+ loc='best',
+ framealpha=0.8)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    plt.tight_layout()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    if output_path:
+\end_layout
+
+\begin_layout Plain Layout
+
+        plt.savefig(output_path,
+ dpi=300,
+ bbox_inches='tight')
+\end_layout
+
+\begin_layout Plain Layout
+
+        plt.close()
+\end_layout
+
+\begin_layout Plain Layout
+
+    else:
+\end_layout
+
+\begin_layout Plain Layout
+
+        plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+tl = pd.DataFrame(columns=('task_group',
+ 'task_description',
+ 'task_status',
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                                'start_date',
+ 'end_date'))
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[0] =["Tiefbau","Blumen umbetten","Abgebrochen","2025-06-14","2025-06-19"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Tiefbau",
+  "Grube graben",
+ "Abgeschlossen",
+ "2025-06-19",
+ "2025-06-30"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "Fundamentgraben erstellen",
+ "Abgeschlossen",
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                 "2025-07-01",
+ "2025-07-04"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "Streifenfundament giessen",
+ "Abgeschlossen",
+\end_layout
+
+\begin_layout Plain Layout
+
+                  "2025-07-04",
+ "2025-07-06"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "GaLa-Bau beauftragen",
+ "Verspaetet",
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                 "2025-07-10",
+ "2025-07-14"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "Mauersteine legen",
+ "Abgeschlossen",
+\end_layout
+
+\begin_layout Plain Layout
+
+                  "2025-07-06",
+ "2025-07-16"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Betonbauer",
+  "Mauer betonieren",
+ "Im Plan",
+\end_layout
+
+\begin_layout Plain Layout
+
+                  "2025-07-16",
+ "2025-07-20"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["GaLa-Bau",
+  "Teichfolie auslegen",
+ "Im Plan",
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                 "2025-07-20",
+ "2025-07-22"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "Drainage aufbauen",
+ "Im Plan",
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                 "2025-07-22",
+ "2025-07-24"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "Kies einfuellen",
+ "Im Plan",
+\end_layout
+
+\begin_layout Plain Layout
+
+                  "2025-07-24",
+ "2025-07-28"]
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.loc[len(tl)]=["Bauseits",
+  "Wasser einlassen",
+ "In Vorbereitung",
+\end_layout
+
+\begin_layout Plain Layout
+
+                  "2025-07-30",
+ "2025-08-10"]
+\end_layout
+
+\begin_layout Plain Layout
+
+print(tl)
+\end_layout
+
+\begin_layout Plain Layout
+
+tl['start_date'] = pd.to_datetime(tl['start_date'],
+ format=DATE_FORMAT)
+\end_layout
+
+\begin_layout Plain Layout
+
+tl['end_date'] = pd.to_datetime(tl['end_date'],
+ format=DATE_FORMAT)
+\end_layout
+
+\begin_layout Plain Layout
+
+tl.set_index(pd.DatetimeIndex(tl['start_date'].values),
+ inplace=True)
+\end_layout
+
+\begin_layout Plain Layout
+
+plot_gantt(tl)
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \end_inset
