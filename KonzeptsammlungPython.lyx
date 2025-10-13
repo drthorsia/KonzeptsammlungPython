@@ -14602,6 +14602,1346 @@ plot_gantt(tl)
 
 \end_layout
 
+\begin_layout Subsection
+Bode - Diagramm
+\end_layout
+
+\begin_layout Standard
+Das Bode-Diagramm kommt in der Regelungstechnik Vielfalt zum Einsatz und wird für die Analyse des Systemverhaltens,
+ Stabilitätsuntersuchungen und Auslegung von Regelkreise verwendet.
+ In dem folgenden Code-Beispiel wird angezeigt wie man das Bode-Diagramm einer Tiefpass 1er Ordnung mit der Bibliothek Spicy darstellt:
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np 
+\end_layout
+
+\begin_layout Plain Layout
+
+from scipy import signal 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Uebertragungsfunktion F(p) = 1/T1p+1 (Tiefpass 1.Ordnung)
+\end_layout
+
+\begin_layout Plain Layout
+
+num = [1]
+\end_layout
+
+\begin_layout Plain Layout
+
+den = [1,
+ 1]
+\end_layout
+
+\begin_layout Plain Layout
+
+system = signal.TransferFunction(num,
+ den)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Frequenzbereich Logarithmisch waehlen
+\end_layout
+
+\begin_layout Plain Layout
+
+w = np.logspace(-2,
+ 2,
+ 500) # von 10^-2 bis 10^2 rad/s
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Frequenzgang berechnen 
+\end_layout
+
+\begin_layout Plain Layout
+
+w,
+ mag,
+ phase = signal.bode(system,
+ w=w)
+\end_layout
+
+\begin_layout Plain Layout
+
+fig,
+ (ax1,
+ ax2) = plt.subplots(2,
+ 1,
+ figsize=(8,6))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Betrag in dB
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.semilogx(w,
+ mag)
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.set_title("Bode-Diagramm",
+ fontsize=10,
+ fontweight="bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.set_ylabel('$Magnitude (dB)$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.grid(True,
+ which="both",
+ linestyle="--",
+ linewidth=0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Phase in Grad
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.semilogx(w,
+ phase)
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.set_xlabel('$Frequenz (rad/s)$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.set_ylabel('$Phase (Grad)$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.grid(True,
+ which="both",
+ linestyle="--",
+ linewidth=0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fig.set_size_inches(200/25.4,
+ 150/25.4) # Umwandlung von millimeter in Zoll 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.tight_layout() # sorgt fuer schoene Abstaende
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ortskurve
+\end_layout
+
+\begin_layout Standard
+Eine Ortskurve stellt dar,
+ wie sich die komplexe Übertragungsfunktion eines Systems abhängig von der Frequenz in der komplexen Ebene verhält.
+ In dem folgenden Code-Beispiel wird wie oben die Ortskurve für einen Tiefpass erste Ordnung dargestellt:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Uebertragungsfunktion F(jw) = 1 / (1 + jwT) Tiefpass 1er Ordnung mit T = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+def F(w):
+\end_layout
+
+\begin_layout Plain Layout
+
+    return 1 / (1 + 1j*w)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Frequenzbereich w waehlen
+\end_layout
+
+\begin_layout Plain Layout
+
+w = np.linspace(0,
+ 20,
+ 500)
+\end_layout
+
+\begin_layout Plain Layout
+
+F_vals = F(w) # F_vals enthaelt alle komplexen Punkte der Ortskurve
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Figure
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.figure(figsize=(8,6))
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.plot(F_vals.real,
+ F_vals.imag,
+ 'b-',
+ label="Ortskurve") # F_vals.real,
+ H_vals.imag Real- und Imaginaerteil
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# fuer w = 0;
+ w = w0 und w = undendlich markieren.
+ Mit w0 = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+points = {
+\end_layout
+
+\begin_layout Plain Layout
+
+    r"$
+\backslash
+omega=0$":
+ F(0),
+\end_layout
+
+\begin_layout Plain Layout
+
+    r"$
+\backslash
+omega=1$":
+ F(1),
+\end_layout
+
+\begin_layout Plain Layout
+
+    r"$
+\backslash
+omega
+\backslash
+to
+\backslash
+infty$":
+ 0
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for label,
+ val in points.items():
+\end_layout
+
+\begin_layout Plain Layout
+
+    x,
+ y = (val.real,
+ val.imag) if val != 0 else (0,
+ 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+    plt.plot(x,
+ y,
+ 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+    plt.text(x+0.05,
+ y+0.05,
+ label,
+ color='red')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Zeiger hinzufuegen,
+ um die Richtung von w zu zeigen 
+\end_layout
+
+\begin_layout Plain Layout
+
+mid = len(F_vals)//2
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.arrow(F_vals.real[mid],
+ F_vals.imag[mid],
+\end_layout
+
+\begin_layout Plain Layout
+
+          F_vals.real[mid+1]-F_vals.real[mid],
+\end_layout
+
+\begin_layout Plain Layout
+
+          F_vals.imag[mid+1]-F_vals.imag[mid],
+\end_layout
+
+\begin_layout Plain Layout
+
+          shape='full',
+ head_width=0.02,
+ color='green')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Formatierung 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.axhline(0,
+ color='black',
+ lw=0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.axvline(0,
+ color='black',
+ lw=0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('$Real$')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('$Imaginaer$')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title("Ortskurve",
+ fontsize=10,
+ fontweight="bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid()
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.axis("equal")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.legend()
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Halb und doppeltlogarithmische Plots 
+\end_layout
+
+\begin_layout Standard
+Beim halblogarithmische Plots ist nur eine Achse logarithmisch skaliert.
+ Doppeltlogarithmische Plots hingegen weisen die beiden Achsen logarithmisch auf.
+ Die Daten werden nach Auftragen auf einer logarithmischen Skala als gerade erscheinen.
+ Beispiel-Code von halb und doppeltlogarithmische Plots
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+x = np.logspace(0.1,
+ 2,
+ 400) # x von 10^0.1 bis 10^2
+\end_layout
+
+\begin_layout Plain Layout
+
+y = np.sqrt(x)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fig,
+ (ax1,
+ ax2) = plt.subplots(1,
+ 2) # eine Reihe,
+ Zwei Spalten 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Halblogarithmische Plots(Semi-Log-Diagramm)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.semilogx(x,
+ y,
+ color="blue",
+ linewidth=2) # x-Achse logarithmisch
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.set_xlabel('$xlog$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.set_ylabel('$ylinear$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.set_title("Halblogarithmischer Plot",
+ fontsize=10,
+ fontweight="bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+ax1.grid(True,
+ which="both") # grid on both axis 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Doppeltlogarithmische Plots
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.loglog(x,
+ y,
+ color="blue",
+ linewidth=2) # beide Achsen logarithmisch
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.set_xlabel('$xlog$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.set_ylabel('$ylog$')
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.set_title("Doppeltlogarithmischer Plot",
+ fontsize=10,
+ fontweight="bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+ax2.grid(True,
+ which="both")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fig.set_size_inches(200/25.4 ,
+ 150/25.4) # Umwandlung von millimeter in Zoll 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.tight_layout() # sorgt fuer schoene Abstaende 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Tortendiagramm
+\end_layout
+
+\begin_layout Standard
+Mit Tortendiagramm werden Daten als Sektoren eines Kreises dargestellt.
+ Jede Sektorgröße repräsentiert den Anteil an der Gesamtmenge.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Dieses Beispiel stellt so ein,
+ dass alles um 90 Grad gegen den Uhrzeigersinn gedreht
+\end_layout
+
+\begin_layout Plain Layout
+
+#  wird und die Herzstueckscheibe auf der positiven y-Achse beginnt.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+labels = 'Stromkosten',
+ 'Nebenkosten',
+ 'Kaltmiete',
+ 'Internet'
+\end_layout
+
+\begin_layout Plain Layout
+
+sizes = [51,
+ 72.90,
+ 462.95,
+ 49.99]
+\end_layout
+
+\begin_layout Plain Layout
+
+explode = (0,
+ 0.1,
+ 0,
+ 0) # Das zweites Stueckt ist leicht herausgezogen
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fig,
+ ax = plt.subplots()
+\end_layout
+
+\begin_layout Plain Layout
+
+fig.set_size_inches(200/25.4 ,
+ 150/25.4) # Umwandlung von millimeter in Zoll 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.set_title("Tortendiagramm fuer Kosten einer Mietwohung")
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.title.set_fontsize(10)
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.title.set_fontweight("bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.pie(sizes,
+ explode=explode,
+ labels=labels,
+ autopct= lambda p:
+ f'{p*sum(sizes) / 100:.1f} €',
+\end_layout
+
+\begin_layout Plain Layout
+
+        shadow=True,
+ startangle=90)
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.axis('equal') # Der Kuchen wird als Kreis gezeichnet
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Box-Plot
+\end_layout
+
+\begin_layout Standard
+Ein Boxplot-Diagramm stellt wichtige Kenngröße einer Stichprobe graphisch dar beziehungsweise den kleinsten Stichprobenwert (Minimum),
+ das untere Quartil (Q1),
+ den Stichprobenmedian (Mittelwert),
+ das obere Quartil (Q2),
+ den größten Stichprobenwert (Maximum),
+ und den Quartilsabstand (IQR).
+ Es wird in der Regel verwendet,
+ um Ausreißer zu erkennen sowie die Streuung und die Asymmetrie der Datenverteilung zu verstehen.
+ Diese Ausreißer können dazu führen,
+ dass statistische Analysen sowie den Mittelwert verfälscht werden und somit zu fehlerhaften Interpretationen der Daten führen.
+ Das folgende Code-Beispiel stellt ein Beispiel für ein BoxPlot Diagramm dar:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+# 22.32 BoxPlot
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+import os
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Zufallsdaten erstellen
+\end_layout
+
+\begin_layout Plain Layout
+
+np.random.seed(0)
+\end_layout
+
+\begin_layout Plain Layout
+
+data_1 = np.random.normal(100,
+ 10,
+ 200)
+\end_layout
+
+\begin_layout Plain Layout
+
+data_2 = np.random.normal(90,
+ 20,
+ 200)
+\end_layout
+
+\begin_layout Plain Layout
+
+data_3 = np.random.normal(80,
+ 30,
+ 200)
+\end_layout
+
+\begin_layout Plain Layout
+
+data = [data_1,
+ data_2,
+ data_3]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fig,
+ ax = plt.subplots()
+\end_layout
+
+\begin_layout Plain Layout
+
+fig.set_size_inches(200/25.4,
+ 150/25.4)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Boxplot erstellen
+\end_layout
+
+\begin_layout Plain Layout
+
+bp = ax.boxplot(data,
+ patch_artist=True,
+ notch=True,
+ vert=0)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Farben anpassen
+\end_layout
+
+\begin_layout Plain Layout
+
+colors = ['#0000FF',
+ '#00FF00',
+ '#FFFF00',
+ '#FF00FF']
+\end_layout
+
+\begin_layout Plain Layout
+
+for patch,
+ color in zip(bp['boxes'],
+ colors):
+\end_layout
+
+\begin_layout Plain Layout
+
+    patch.set_facecolor(color)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Linien anpassen
+\end_layout
+
+\begin_layout Plain Layout
+
+for whisker in bp['whiskers']:
+\end_layout
+
+\begin_layout Plain Layout
+
+    whisker.set(color='#8B008B',
+ linewidth=1.5,
+ linestyle=":")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for cap in bp['caps']:
+\end_layout
+
+\begin_layout Plain Layout
+
+    cap.set(color='#8B008B',
+ linewidth=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for median in bp['medians']:
+\end_layout
+
+\begin_layout Plain Layout
+
+    median.set(color='red',
+ linewidth=3)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for flier in bp['fliers']:
+\end_layout
+
+\begin_layout Plain Layout
+
+    flier.set(marker='D',
+ color='#e7298a',
+ alpha=0.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print("data_1 :
+ ",
+ data_1)
+\end_layout
+
+\begin_layout Plain Layout
+
+print(f"
+\backslash
+n data_2 :
+  {data_2}")
+\end_layout
+
+\begin_layout Plain Layout
+
+print(f"
+\backslash
+n data_3 :
+  {data_3}")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Statistische Werte berechnen und anzeigen
+\end_layout
+
+\begin_layout Plain Layout
+
+for i,
+ d in enumerate(data,
+ start=1):
+\end_layout
+
+\begin_layout Plain Layout
+
+    Q1 = np.percentile(d,
+ 25)
+\end_layout
+
+\begin_layout Plain Layout
+
+    Q3 = np.percentile(d,
+ 75)
+\end_layout
+
+\begin_layout Plain Layout
+
+    IQR = Q3 - Q1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    lower_whisker = Q1 - 1.5 * IQR
+\end_layout
+
+\begin_layout Plain Layout
+
+    upper_whisker = Q3 + 1.5 * IQR
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    outliers = d[(d < lower_whisker) | (d > upper_whisker)]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"
+\backslash
+n Datensatz {i}:
+ data_{i}")
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"Q1 (25%):
+ {Q1:.2f}")
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"Q3 (75%):
+ {Q3:.2f}")
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"IQR:
+ {IQR:.2f}")
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"Unterer Whisker (Grenze):
+ {lower_whisker:.2f}")
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"Oberer Whisker (Grenze):
+ {upper_whisker:.2f}")
+\end_layout
+
+\begin_layout Plain Layout
+
+    print(f"Ausreißer:
+ {outliers if len(outliers) > 0 else 'Keine'}")
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.xlabel('$Datensatz$')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.ylabel('$Messwert$')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.title("BoxPlot Diagramm",
+ fontsize=10,
+ fontweight="bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.grid()
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.savefig(os.path.join("C:/Users/E1AJRWG/KonzeptsammlungPython_Copy/Kapitel22_Matplotlib/Kapitel22_Grafiken",
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                          "Box-Plot.png"),
+ dpi=300,
+ bbox_inches='tight')
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Sankey Diagramm
+\end_layout
+
+\begin_layout Standard
+Ein Sankey Diagramm ist eine spezielle Form von Flussdiagramm,
+ bei denen die Breite der Pfeile proportional zur dargestellten Flussmenge ist.
+ Sankey Diagramm wird typischerweise verwendet,
+ um Energie-,
+ Material- oder Kostenströme zwischen verschiedenen Prozessen anschaulich darzustellen.
+ Für die Erstellung von Sankey Diagramm verwenden wir das Modul 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+matplotlib.sankey
+\end_layout
+
+\end_inset
+
+.
+ In dem folgenden Beispiel-Code wird das Sankey Diagramm einer Halogenlampe,
+ wobei ihre zugeführte Energie beziehungsweise Nutz- und Wärmeenergie gezeigt wird,
+ dargestellt.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+from matplotlib.sankey import Sankey
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fig = plt.figure()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ax = fig.add_subplot(1,
+ 1,
+ 1,
+ xticks=[],
+ yticks=[],
+\end_layout
+
+\begin_layout Plain Layout
+
+                     title="Sankey Diagramm einer Halogenlampe")
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.title.set_fontsize(10)
+\end_layout
+
+\begin_layout Plain Layout
+
+ax.title.set_fontweight("bold")
+\end_layout
+
+\begin_layout Plain Layout
+
+sankey = Sankey(ax=ax,
+ scale=0.01,
+ offset=0.2,
+ head_angle=180,
+\end_layout
+
+\begin_layout Plain Layout
+
+                format='%.0f',
+ unit='J')
+\end_layout
+
+\begin_layout Plain Layout
+
+sankey.add(flows=[35,
+ -30,
+ -5],
+\end_layout
+
+\begin_layout Plain Layout
+
+           labels=['Gesamte zugefuehrte Energie',
+ 'Waermeenergie',
+ 'Nutzenergie'],
+\end_layout
+
+\begin_layout Plain Layout
+
+           orientations=[0,
+ -1,
+ 0],
+\end_layout
+
+\begin_layout Plain Layout
+
+           pathlengths=[0.25,
+ 0.25,
+ 0.25],
+\end_layout
+
+\begin_layout Plain Layout
+
+           patchlabel="Halogenlampe")  # Arguments to matplotlib.patches.PathPatch
+\end_layout
+
+\begin_layout Plain Layout
+
+diagrams = sankey.finish()
+\end_layout
+
+\begin_layout Plain Layout
+
+diagrams[0].texts[-1].set_color('r')
+\end_layout
+
+\begin_layout Plain Layout
+
+diagrams[0].text.set_fontweight('bold')
+\end_layout
+
+\begin_layout Plain Layout
+
+fig.set_size_inches(200/25.4 ,
+ 150/25.4) # Umwandlung von millimeter in Zoll 
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
 \begin_layout Section
 Anwendungen
 \end_layout
