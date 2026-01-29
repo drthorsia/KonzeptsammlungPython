@@ -14,5 +14,6 @@ ax.pie(sizes, explode=explode, labels=labels,
        autopct= lambda p: f'{p*sum(sizes) / 100:.1f} €',
         shadow=False, startangle=0)
 ax.axis('equal') # Der Kuchen wird als Kreis gezeichnet
+plt.subplots_adjust(right=0.85)
 plt.savefig('Tortendiagramm.pdf')
 plt.savefig('Tortendiagramm.svg')

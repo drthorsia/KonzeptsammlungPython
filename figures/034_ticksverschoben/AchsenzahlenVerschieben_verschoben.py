@@ -21,6 +21,8 @@ Breite_inches=2.2
 Hoehe_inches=0.7
 xmin_inches=0.6
 ymin_inches=0.3
-plt.savefig('Achsenzahlenverschieben_verschoben.pdf', bbox_inches=matplotlib.transforms.Bbox([[xmin_inches, ymin_inches],[xmin_inches+Breite_inches,Hoehe_inches+ymin_inches]]))
+plt.savefig('Achsenzahlenverschieben_verschoben.pdf',
+            bbox_inches=matplotlib.transforms.Bbox([[xmin_inches, ymin_inches],
+            [xmin_inches+Breite_inches,Hoehe_inches+ymin_inches]]))
 #plt.show()
 
