@@ -11,7 +11,8 @@ sankey.add(flows=flows, label='Eins',
            orientations=[-1, 1, 0, 1, 1, 1, -1, -1, 0],
            labels=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'])
 # orientation: -1: nach oben, 0:rechts, 1: nach unten
-sankey.add(flows=[-0.25, 0.15, 0.1], label='Zwei', orientations=[-1, -1, -1], prior=0, connect=(0, 0))
+sankey.add(flows=[-0.25, 0.15, 0.1], label='Zwei',
+           orientations=[-1, -1, -1], prior=0, connect=(0, 0))
 diagrams = sankey.finish()
 diagrams[-1].patch.set_hatch('/')
 plt.legend()
