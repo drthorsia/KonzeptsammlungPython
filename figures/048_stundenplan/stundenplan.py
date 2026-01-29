@@ -1,0 +1,73 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from datetime import datetime, timedelta, date, time
+from babel.dates import format_date, format_datetime, format_time
+Sprache = ['de_DE', 'en_US'][0]  # oder [1] für Englisch
+Farben = {'Reise':'silver', 'Soziales':'salmon', 'Vorlesung':'tomato', 'Essen':'bisque',
+          'Exkursion':'skyblue', 'Exam':'gold'}
+Stundenplan = np.array([
+    [datetime(2026, 5, 10, 7, 0, 0), 12*60, "Fußball\nAuswärts", 'Reise'],
+    [datetime(2026, 5, 11, 13, 30, 0), 6.5*60, "Sport\n---\nAG Technik", 'Soziales'],
+    [datetime(2026, 5, 12, 8, 0, 0), 90, "Mathe\n Schröder", 'Vorlesung'],
+    [datetime(2026, 5, 12, 10, 0, 0), 90, "Mathe\n Schröder", 'Vorlesung'],
+    [datetime(2026, 5, 12, 11, 30, 0), 60, "Mittagessen", 'Essen'],
+    [datetime(2026, 5, 12, 12, 30, 0), 90, "Deutsch\nSchmidt", 'Vorlesung'],
+    [datetime(2026, 5, 12, 14, 30, 0), 90, "Musik\nSchulz", 'Vorlesung'],
+    [datetime(2026, 5, 13,  8,  0, 0), 90, "Physik\Schmied", 'Vorlesung'],
+    [datetime(2026, 5, 13, 10,  0, 0), 90, "Englisch\nSmith", 'Vorlesung'],
+    [datetime(2026, 5, 13, 11,  30, 0), 60, "Mittagessen", 'Essen'],
+    [datetime(2026, 5, 13, 12,  30, 0), 90, "Musik\nSchulz", 'Vorlesung'],
+    [datetime(2026, 5, 13, 14,  0, 0), 180, "Sport\nSchulte", 'Exkursion'],
+    [datetime(2026, 5, 14, 7,  0, 0), 12*60, "Ausflug\nMuseum", 'Exkursion'],
+    [datetime(2026, 5, 15, 8,  0, 0), 90, "Englisch\nSmith", 'Vorlesung'],
+    [datetime(2026, 5, 15, 10,  0, 0), 90, "Deutsch\nSchmidt", 'Vorlesung'],
+    [datetime(2026, 5, 15, 11,  30, 0), 60, "Mittagessen", 'Essen'],
+    [datetime(2026, 5, 15, 13,  0, 0), 45*60/10, "AG Technik", 'Exkursion'],
+    [datetime(2026, 5, 15, 17,  0, 0), 180, "Mathe\nSchröder", 'Vorlesung'],
+    [datetime(2026, 5, 16, 9,  0, 0), 90, "Mathe\nSchröder", 'Vorlesung'],
+    [datetime(2026, 5, 16, 11,  0, 0), 60, "Test", 'Exam'],
+    [datetime(2026, 5, 17, 7,  0, 0), 13*60, "Fußball\nHeimspiel", 'Exkursion']
+                       ])
+fig, ax = plt.subplots()
+globalfontsize=5
+barfontsize=3.8
+StartStunde = 7
+EndStunde = 20
+DatumErsterTag =datetime(2026, 5, 10)
+DatumLetzterTag =datetime(2026, 5, 17)
+
+StartUhrzeit = DatumErsterTag + timedelta(hours=StartStunde)
+Uhrzeit_Text = [format_time(StartUhrzeit+timedelta(minutes=30*k), format='short',
+                            locale=Sprache) for k in range(27)]
+Uhrzeit_Minuten = [-StartStunde*60-30*k for k in range(len(Uhrzeit_Text))]
+ax.set_yticks(Uhrzeit_Minuten, Uhrzeit_Text, rotation=0, fontsize=globalfontsize)
+ax.set_ylim([-EndStunde*60-10, -StartStunde*60+10])
+ax.set_xlim([-0.55, (DatumLetzterTag - DatumErsterTag).days+0.55])
+for VNr in range(len(Stundenplan)):
+    Startuhrzeit_Minuten = Stundenplan[VNr,0].hour*60+Stundenplan[VNr,0].minute
+    DatumVeranstaltung = Stundenplan[VNr,0]
+    Dauer_Minuten = Stundenplan[VNr,1]
+    Text = Stundenplan[VNr,2]
+    ax.bar([(DatumVeranstaltung - DatumErsterTag).days], [-Dauer_Minuten],
+           bottom=-Startuhrzeit_Minuten, width=0.95,
+           facecolor=Farben[Stundenplan[VNr,3]], edgecolor='black', zorder = 10 )
+    ax.text((DatumVeranstaltung - DatumErsterTag).days,
+            -Startuhrzeit_Minuten-0.5*Dauer_Minuten, Text , zorder = 20,
+            horizontalalignment='center', verticalalignment='center',
+            fontsize=barfontsize )
+ax.grid(axis='y', c='lightgray')
+TagIndex = [t for t in range((DatumVeranstaltung - DatumErsterTag).days+1)]
+TagNamen = [format_date((DatumErsterTag+timedelta(days=0+tidx)), format='EEEE',
+                        locale=Sprache)  for tidx in TagIndex]
+TagNamen = [TagNamen[tidx] + '\n'+format_date((DatumErsterTag+timedelta(days=0+tidx)),
+                            format='medium', locale=Sprache)  for tidx in TagIndex]
+for vgl in range((DatumVeranstaltung - DatumErsterTag).days):
+    ax.axvline(x=0.5+vgl, c='lightgray', lw=1)
+    
+ax.set_xticks(TagIndex, TagNamen, fontsize=globalfontsize)
+ax.set_yticks(np.arange(-StartStunde*60,-(EndStunde+1)*60,step=-60))
+ax.tick_params(top=True, labeltop=True, bottom=False, labelbottom=False)
+fig.set_size_inches([190/25.4, 120/25.4])
+plt.subplots_adjust(left=0.06, right=0.99, top=0.93, bottom=0.01)
+plt.savefig('Stundenplan.pdf')
+plt.savefig('Stundenplan.png')
